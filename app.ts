@@ -3,10 +3,9 @@ import express from 'express' ;
 import env from "dotenv" ; 
 import bookRoute from "./routes/book.js";
 import router from "./routes/book.js";
+import AppDataSource from "./db/dbConfig.js";
 
-const app =
-
-express();
+const app = express () ; 
 env.config() ; 
 const PORT  = process.env.PORT || 5000;
 
@@ -16,6 +15,14 @@ app.get("/", (req: Request, res: Response) => {
 })
 
 app.use("/books", bookRoute );
+
+AppDataSource.initialize().then(() => {
+    console.log("hii Connected to db ");
+    
+}).catch(err => {
+    console.log("Error had Happened " + err); 
+    
+})
 
 app.listen(PORT, () => {
 
