@@ -7,12 +7,10 @@ const AppDataSource = new DataSource({
     port: 3306,
     username: "root",
     password: "",
-    database: "book.db",
+    database: "book-db",
     synchronize: true,
     logging: false,
     entities: [Book],
-    // subscribers: [],
-    // migrations: [],
 })
 
 export default AppDataSource ; 

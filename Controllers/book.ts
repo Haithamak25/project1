@@ -1,5 +1,6 @@
 
 import { Request, Response } from "express"
+import { Book } from "../db/entites/Book.js"
 
 const filterArrayController = (req: Request ,res:Response ) => {
     const arr = [1,2,3,4,5,6,7,8,9]
@@ -26,7 +27,8 @@ const books  = [{
  } , 
 ]
 
-const getAllBooks = (req: Request ,res:Response ) => {
+const getAllBooks = async (req: Request ,res:Response ) => {
+    const books = await Book.find();
    res.json ({
     message : "getting all book sucssfully " , 
     status : true , 
@@ -36,15 +38,15 @@ const getAllBooks = (req: Request ,res:Response ) => {
 
 const createBooks = (req: Request ,res:Response) => {
 
-    const newBook =   {
-        id : 3 , 
-        author : "Nabeel 3rman" , 
-        book : "DataBase 2 " 
-    }
-    books.push(newBook) 
+    const newBook =Book.create({
+        bookName : "test"  , 
+        author : "test"
+    })
+    newBook.save() ; 
+
     res.status(201).json( {  
         message : "add new book" , 
-        books : books 
+        books : newBook
 
     } ) 
 }
